@@ -1,31 +1,30 @@
-import style from "./ProdutosInativos.module.css";
-
+import style from './UsuariosInativos.module.css';
+import { Sidebar } from '../../../components/Sidebar/Sidebar';
+import { Topbar } from '../../../components/Topbar/Topbar';
 import { Link } from "react-router-dom";
 import { Button, Modal, Table } from "react-bootstrap";
-import { MdOutlineRestorePage } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { Sidebar } from "../../../components/Sidebar/Sidebar";
-import { Topbar } from "../../../components/Topbar/Topbar";
-import ProdutoService from "../../../services/IteraDiscService/IteraDiscServiceProduto";
+import UsuarioService from "../../../services/IteraDiscService/IteraDiscServiceUsuario";
+import { MdOutlineRestorePage } from "react-icons/md";
 
-export function ProdutosInativos() {
-  const [produtos, setProdutos] = useState([]);
+export function UsuariosInativos() {
+  const [usuarios, setUsuarios] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
 
-  const handleClickRestaurar = (produto) => {
-    setProdutoSelecionado(produto);
+  const handleClickRestaurar = (usuario) => {
+    setUsuarioSelecionado(usuario);
     setMostrarModal(true);
   };
 
   const handleRestaurar = async () => {
     try {
-      await ProdutoService.restaurarAsync(produtoSelecionado.produtoId);
-      setProdutos(
-        produtos.filter((p) => p.produtoId !== produtoSelecionado.produtoId),
+      await UsuarioService.restaurarAsync(usuarioSelecionado.usuarioId);
+      setUsuarios(
+        usuarios.filter((u) => u.usuarioId !== usuarioSelecionado.usuarioId),
       );
     } catch (error) {
-      console.error("Erro ao restaurar produto:", error);
+      console.error("Erro ao restaurar usuário:", error);
     } finally {
       handleFecharModal();
     }
@@ -33,53 +32,50 @@ export function ProdutosInativos() {
 
   const handleFecharModal = () => {
     setMostrarModal(false);
-    setProdutoSelecionado(null);
+    setUsuarioSelecionado(null);
   };
 
-  async function carregarProdutos() {
+  async function carregarUsuarios() {
     try {
-      const listaProdutos = await ProdutoService.listarAsync(false);
-      console.log(listaProdutos);
-      setProdutos(listaProdutos);
+      const listaUsuarios = await UsuarioService.listarAsync(false);
+      console.log(listaUsuarios);
+      setUsuarios(listaUsuarios);
     } catch (error) {
-      console.error("Erro ao carrgar produtos:", error);
+      console.error("Erro ao carrgar usuários:", error);
     }
   }
 
   useEffect(() => {
-    carregarProdutos();
-  }, []);
+    carregarUsuarios();
+  });
   return (
     <Sidebar>
       <Topbar>
         <div className={style.pagina_conteudo}>
           <div className={style.pagina_cabecalho}>
-            <h3>Produtos Inativos</h3>
-            <Link to="/" className={style.botao_mostrarAtivos}>
+            <h3>Usuários Inativos</h3>
+            <Link to="/usuarios" className={style.botao_mostrarAtivos}>
               Ativos
             </Link>
           </div>
+
           <div className={style.tabela}>
             <Table responsive>
               <thead className={style.tabela_cabecalho}>
                 <tr>
                   <th>Nome</th>
-                  <th>Descrição</th>
-                  <th>Preço</th>
-                  <th>Em Estoque</th>
+                  <th>Email</th>
                   <th>Ações</th>
                 </tr>
               </thead>
-              <tbody className={style.corpo}>
-                {produtos.map((produto) => (
-                  <tr key={produto.produtoId}>
-                    <td>{produto.nome}</td>
-                    <td>{produto.descricao}</td>
-                    <td>R$ {produto.preco.toFixed(2)}</td>
-                    <td>{produto.emEstoque}</td>
+              <tbody className={style.tabela_corpo}>
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.usuarioId}>
+                    <td>{usuario.nome}</td>
+                    <td>{usuario.email}</td>
                     <td>
                       <button
-                        onClick={() => handleClickRestaurar(produto)}
+                        onClick={() => handleClickRestaurar(usuario)}
                         className={style.botao_restaurar}
                       >
                         <MdOutlineRestorePage />
@@ -90,14 +86,13 @@ export function ProdutosInativos() {
               </tbody>
             </Table>
           </div>
-
           <Modal show={mostrarModal} onHide={handleFecharModal}>
             <Modal.Header closeButton>
               <Modal.Title>Confirmar</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Tem certeza que deseja restaurar o produto{" "}
-              {produtoSelecionado?.nome}?
+              Tem certeza que deseja restaurar o usuário{" "}
+              {usuarioSelecionado?.nome}?
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleFecharModal}>

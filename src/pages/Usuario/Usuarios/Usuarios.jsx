@@ -1,30 +1,30 @@
-import style from "./Home.module.css";
-import { Sidebar } from "../../components/Sidebar/Sidebar";
-import { Topbar } from "../../components/Topbar/Topbar";
+import style from "./Usuarios.module.css";
+import { Sidebar } from "../../../components/Sidebar/Sidebar";
+import { Topbar } from "../../../components/Topbar/Topbar";
 import { Link } from "react-router-dom";
 import { Button, Modal, Table } from "react-bootstrap";
-import { MdDelete, MdEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
-import ProdutoService from "../../services/IteraDiscService/IteraDiscServiceProduto";
+import UsuarioService from "../../../services/IteraDiscService/IteraDiscServiceUsuario";
+import { MdDelete, MdEdit, MdOutlinePassword  } from "react-icons/md";
 
-export function Home() {
-  const [produtos, setProdutos] = useState([]);
+export function Usuarios() {
+  const [usuarios, setUsuarios] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
 
-  const handleClickDeletar = (produto) => {
-    setProdutoSelecionado(produto);
+  const handleClickDeletar = (usuario) => {
+    setUsuarioSelecionado(usuario);
     setMostrarModal(true);
   };
 
   const handleDeletar = async () => {
     try {
-      await ProdutoService.deletarAsync(produtoSelecionado.produtoId);
-      setProdutos(
-        produtos.filter((p) => p.produtoId !== produtoSelecionado.produtoId),
+      await UsuarioService.deletarAsync(usuarioSelecionado.usuarioId);
+      setUsuarios(
+        usuarios.filter((u) => u.usuarioId !== usuarioSelecionado.usuarioId),
       );
     } catch (error) {
-      console.error("Erro ao deletar produto:", error);
+      console.error("Erro ao deletar usuário:", error);
     } finally {
       handleFecharModal();
     }
@@ -32,67 +32,72 @@ export function Home() {
 
   const handleFecharModal = () => {
     setMostrarModal(false);
-    setProdutoSelecionado(null);
+    setUsuarioSelecionado(null);
   };
 
-  async function carregarProdutos() {
+  async function carregarUsuarios() {
     try {
-      const listaProdutos = await ProdutoService.listarAsync(true);
-      console.log(listaProdutos);
-      setProdutos(listaProdutos);
+      const listaUsuarios = await UsuarioService.listarAsync(true);
+      console.log(listaUsuarios);
+      setUsuarios(listaUsuarios);
     } catch (error) {
-      console.error("Erro ao carrgar produtos:", error);
+      console.error("Erro ao carrgar usuários:", error);
     }
   }
 
   useEffect(() => {
-    carregarProdutos();
+    carregarUsuarios();
   }, []);
   return (
     <Sidebar>
       <Topbar>
         <div className={style.pagina_conteudo}>
           <div className={style.pagina_cabecalho}>
-            <h3>Catálogo de discos</h3>
+            <h3>Usuários</h3>
             <Link
-              to="/produtos/inativos"
+              to="/usuarios/inativos"
               className={style.botao_mostrarInativos}
             >
               Inativos
             </Link>
-            <Link to="/produto/novo" className={style.botao_novo}>
-              + Novo Produto
+            <Link to="/usuario/novo" className={style.botao_novo}>
+              + Novo Usuário
             </Link>
           </div>
+
           <div className={style.tabela}>
             <Table responsive>
               <thead className={style.tabela_cabecalho}>
                 <tr>
                   <th>Nome</th>
-                  <th>Descrição</th>
-                  <th>Preço</th>
-                  <th>Em Estoque</th>
+                  <th>Email</th>
                   <th>Ações</th>
                 </tr>
               </thead>
-              <tbody className={style.corpo}>
-                {produtos.map((produto) => (
-                  <tr key={produto.produtoId}>
-                    <td>{produto.nome}</td>
-                    <td>{produto.descricao}</td>
-                    <td>R$ {produto.preco.toFixed(2)}</td>
-                    <td>{produto.emEstoque}</td>
+              <tbody className={style.tabela_corpo}>
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.usuarioId}>
+                    <td>{usuario.nome}</td>
+                    <td>{usuario.email}</td>
                     <td>
                       <Link
-                        to="/produto/editar"
-                        state={produto.produtoId}
+                        to="/usuario/editar"
+                        state={usuario.usuarioId}
                         className={style.botao_editar}
                       >
                         <MdEdit />
                       </Link>
 
+                      <Link
+                        to="/usuario/alterarSenha"
+                        state={usuario.usuarioId}
+                        className={style.botao_alterarSenha}
+                      >
+                        <MdOutlinePassword />
+                      </Link>
+
                       <button
-                        onClick={() => handleClickDeletar(produto)}
+                        onClick={() => handleClickDeletar(usuario)}
                         className={style.botao_deletar}
                       >
                         <MdDelete />
@@ -103,14 +108,13 @@ export function Home() {
               </tbody>
             </Table>
           </div>
-
           <Modal show={mostrarModal} onHide={handleFecharModal}>
             <Modal.Header closeButton>
               <Modal.Title>Confirmar</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Tem certeza que deseja deletar o produto{" "}
-              {produtoSelecionado?.nome}?
+              Tem certeza que deseja deletar o usuário{" "}
+              {usuarioSelecionado?.nome}?
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleFecharModal}>
