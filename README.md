@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+📗 README DO **FRONT-END** (React)
+Arquivo: `README.md` no repositório do **iteradisc.app (Front-end)**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```md
+# IteraDisc – Front-end
 
-## Available Scripts
+Aplicação desenvolvida em React responsável pela interface visual da loja virtual de discos IteraDisc.
+Este projeto consome a API REST em C# e apresenta os dados ao usuário de forma interativa e dinâmica.
 
-In the project directory, you can run:
+Aqui está apenas a camada de apresentação do sistema (cliente).
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Tecnologias Utilizadas
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React
+- Vite
+- Axios
+- JavaScript
+- HTML5
+- CSS3
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧱 Arquitetura do Front-end
 
-### `npm run build`
+O front-end segue a arquitetura baseada em componentes:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Pages** → Telas principais da aplicação  
+- **Components** → Componentes reutilizáveis da interface  
+- **Services** → Comunicação com a API (Axios)  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Isso garante:
+- Organização do código
+- Reutilização de componentes
+- Facilidade de manutenção
+- Separação de responsabilidades
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 📁 Estrutura de Pastas
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+iteradisc.app
+│
+├── src
+│   ├── components
+│   │   ├── Navbar.jsx
+│   │   ├── ProdutoCard.jsx
+│   │   └── ProdutoList.jsx
+│   │
+│   ├── pages
+│   │   └── Home.jsx
+│   │
+│   ├── services
+│   │   └── api.js
+│   │
+│   ├── App.jsx
+│   └── main.jsx
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+````
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## ⚙️ Pré-requisitos
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js 18 ou superior  
+- npm ou yarn  
+- Navegador moderno (Chrome, Edge, Firefox)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## ▶️ Como Executar o Projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Clone o repositório:
+```bash
+git clone <url-do-repositorio-frontend>
+````
 
-### Analyzing the Bundle Size
+2. Entre na pasta do projeto:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+cd iteradisc.app
+```
 
-### Making a Progressive Web App
+3. Instale as dependências:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+npm install
+```
 
-### Advanced Configuration
+4. Configure a URL da API no arquivo:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+src/services/api.js
+```
 
-### Deployment
+Exemplo:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```js
+import axios from "axios";
 
-### `npm run build` fails to minify
+export const api = axios.create({
+  baseURL: "https://localhost:xxxx/api"
+});
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. Execute a aplicação:
+
+```bash
+npm run dev
+```
+
+6. Acesse no navegador:
+
+```
+http://localhost:5173
+```
+
+---
+
+## 🖥️ Funcionalidades da Interface
+
+* Listagem de produtos na home
+* Consumo da API REST
+* Renderização dinâmica dos dados
+* Interface baseada em componentes reutilizáveis
+* Simulação visual de uma loja virtual de discos
+
+---
+
+## 🔌 Comunicação com a API
+
+Toda comunicação é feita via Axios através do arquivo:
+
+```
+src/services/api.js
+```
+
+Ele centraliza:
+
+* BaseURL da API
+* Configuração de requisições HTTP
+* Organização das chamadas para o back-end
+
+---
+
+## 🛠️ Possíveis Problemas Comuns
+
+Se os produtos não aparecerem na tela:
+
+* Verifique se o back-end está rodando
+* Confirme se a URL do Axios está correta
+* Confira se existe produto cadastrado no banco
+* Veja erros no console do navegador (F12)
+
+---
+
+## 📌 Observações Finais
+
+Este projeto representa exclusivamente a camada de interface do sistema IteraDisc.
+Ele foi desenvolvido com foco em simplicidade, clareza visual e integração direta com a API.
+
+```
