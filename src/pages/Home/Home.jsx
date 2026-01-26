@@ -3,18 +3,33 @@ import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { Topbar } from "../../components/Topbar/Topbar";
 import { Link } from "react-router-dom";
 import { Button, Modal, Table } from "react-bootstrap";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit,  MdAddShoppingCart} from "react-icons/md";
 import { useEffect, useState } from "react";
 import ProdutoService from "../../services/IteraDiscService/IteraDiscServiceProduto";
+import ItemVendaService from "../../services/IteraDiscService/IteraDiscServiceItemVenda";
+
+import {
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+} from "react-bootstrap";
 
 export function Home() {
   const [produtos, setProdutos] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [mostrarModalQuantidade, setMostrarModalQuantidade] = useState(false);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+  const [quantidade, setQuantidade] = useState("");
 
   const handleClickDeletar = (produto) => {
     setProdutoSelecionado(produto);
     setMostrarModal(true);
+  };
+
+  const handleClickAdicionarCarrinho = (produto) => {
+    setProdutoSelecionado(produto);
+    setMostrarModalQuantidade(true);
   };
 
   const handleDeletar = async () => {
@@ -30,8 +45,24 @@ export function Home() {
     }
   };
 
+  const handleAdicionarCarrinho = async () => {
+    if(isFormValid()) {
+      await ItemVendaService.criarAsync(
+        produtoSelecionado.produtoId,
+        quantidade)
+        handleFecharModal();
+    } else {
+      alert("Por favor preencha todos os campo!");
+    }
+  };
+
+const isFormValid = () => {
+    return quantidade;
+  };
+
   const handleFecharModal = () => {
     setMostrarModal(false);
+    setMostrarModalQuantidade(false);
     setProdutoSelecionado(null);
   };
 
@@ -83,6 +114,12 @@ export function Home() {
                     <td>R$ {produto.preco.toFixed(2)}</td>
                     <td>{produto.emEstoque}</td>
                     <td>
+                      <button
+                        onClick={() => handleClickAdicionarCarrinho(produto)}
+                        className={style.botao_adicionarItem}
+                      >
+                        <MdAddShoppingCart />
+                      </button>
                       <Link
                         to="/produto/editar"
                         state={produto.produtoId}
@@ -120,6 +157,40 @@ export function Home() {
                 Deletar
               </Button>
             </Modal.Footer>
+          </Modal>
+
+          <Modal show={mostrarModalQuantidade} onHide={handleFecharModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Informe a quantidade</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form onSubmit={handleAdicionarCarrinho}>
+                <FormGroup controlId="formQuantidade" className="mb-3">
+                  <FormLabel>Informe a quantidade</FormLabel>
+                  <FormControl
+                    type="number"
+                    placeholder="Informe a quantidade"
+                    name="quantidade"
+                    value={quantidade}
+                    onChange={(e) => setQuantidade(e.target.value)}
+                    required
+                  />
+                </FormGroup>
+
+                <div className={style.botoes}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={!isFormValid()}
+                  >
+                    Salvar
+                  </Button>
+                  <Button variant="secondary" onClick={handleFecharModal}>
+                    Cancelar
+                  </Button>
+                </div>
+              </Form>
+            </Modal.Body>
           </Modal>
         </div>
       </Topbar>

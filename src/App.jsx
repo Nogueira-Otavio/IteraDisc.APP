@@ -9,6 +9,7 @@ import { NovoUsuario } from "./pages/Usuario/NovoUsuario/NovoUsuario";
 import { EditarUsuario } from "./pages/Usuario/EditarUsuario/EditarUsuario";
 import { UsuariosInativos } from "./pages/Usuario/UsuariosInativos/UsuariosInativos";
 import { AlterarSenha } from "./pages/Usuario/AlterarSenha/AlterarSenha";
+import { Carrinho } from "./pages/Carrinho/Carrinho/Carrinho";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/usuario/editar" element={<EditarUsuario />} />
         <Route path="/usuarios/inativos" element={<UsuariosInativos />} />
         <Route path="/usuario/alterarSenha" element={<AlterarSenha />} />
+        <Route path="/carrinho" element={<Carrinho />} />
       </Routes>
     </BrowserRouter>
   );
