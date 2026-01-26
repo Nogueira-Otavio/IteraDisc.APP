@@ -11,6 +11,7 @@ import { UsuariosInativos } from "./pages/Usuario/UsuariosInativos/UsuariosInati
 import { AlterarSenha } from "./pages/Usuario/AlterarSenha/AlterarSenha";
 import { Carrinho } from "./pages/Carrinho/Carrinho/Carrinho";
 import { Historico } from "./pages/Venda/Historico/Historico";
+import { ChatBot } from "./pages/ChatBot/ChatBot/ChatBot";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/usuario/alterarSenha" element={<AlterarSenha />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/historico" element={<Historico />} />
+        <Route path="/chatbot" element={<ChatBot />} />
       </Routes>
     </BrowserRouter>
   );
