@@ -1,0 +1,74 @@
+.pagina_conteudo {
+    width: 100%;
+    min-height: 100%;
+    padding: 50px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.botoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.tabela {
+    width: 100%;
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.tabela_cabecalho th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    padding: 10px;
+    text-align: left;
+}
+
+.corpo td {
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.corpo tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+ul li {
+    padding: 5px 0;
+}
+
+.mb-3 {
+    margin-bottom: 15px;
+}
+
+select {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

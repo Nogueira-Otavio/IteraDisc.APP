@@ -10,6 +10,7 @@ import { EditarUsuario } from "./pages/Usuario/EditarUsuario/EditarUsuario";
 import { UsuariosInativos } from "./pages/Usuario/UsuariosInativos/UsuariosInativos";
 import { AlterarSenha } from "./pages/Usuario/AlterarSenha/AlterarSenha";
 import { Carrinho } from "./pages/Carrinho/Carrinho/Carrinho";
+import { Historico } from "./pages/Venda/Historico/Historico";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/usuarios/inativos" element={<UsuariosInativos />} />
         <Route path="/usuario/alterarSenha" element={<AlterarSenha />} />
         <Route path="/carrinho" element={<Carrinho />} />
+        <Route path="/historico" element={<Historico />} />
       </Routes>
     </BrowserRouter>
   );

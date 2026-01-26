@@ -37,7 +37,7 @@ const VendaService = {
 
   async HistoricoCliente(usuarioId) {
     try {
-      const response = await HTTPClient.get(`/Vemda/HistoricoCliente?usuarioId=${usuarioId}`);
+      const response = await HTTPClient.get(`/Vemda/HistoricoCliente?usuarioId=${Number(usuarioId)}`);
       return response.data
     } catch (error) {
       console.error("Erro ao listar items venda:", error);
