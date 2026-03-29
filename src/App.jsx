@@ -12,23 +12,27 @@ import { AlterarSenha } from "./pages/Usuario/AlterarSenha/AlterarSenha";
 import { Carrinho } from "./pages/Carrinho/Carrinho/Carrinho";
 import { Historico } from "./pages/Venda/Historico/Historico";
 import { ChatBot } from "./pages/ChatBot/ChatBot/ChatBot";
+import { Login } from "./pages/Login/Login";
+import { RotaProtegida } from "./components/RotaProtegida/RotaProtegida";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/produto/novo" element={<NovoProduto />} />
-        <Route path="/produto/editar" element={<EditarProduto />} />
-        <Route path="/produtos/inativos" element={<ProdutosInativos />} />
-        <Route path="/usuarios" element={<Usuarios />} />
-        <Route path="/usuario/novo" element={<NovoUsuario />} />
-        <Route path="/usuario/editar" element={<EditarUsuario />} />
-        <Route path="/usuarios/inativos" element={<UsuariosInativos />} />
-        <Route path="/usuario/alterarSenha" element={<AlterarSenha />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/historico" element={<Historico />} />
-        <Route path="/chatbot" element={<ChatBot />} />
+       <Route path="/login" element={<Login />} />
+
+       <Route path="/" element={<RotaProtegida><Home /></RotaProtegida>} />
+        <Route path="/produto/novo" element={<RotaProtegida><NovoProduto /></RotaProtegida>} />
+        <Route path="/produto/editar" element={<RotaProtegida><EditarProduto /></RotaProtegida>} />
+        <Route path="/produtos/inativos" element={<RotaProtegida><ProdutosInativos /></RotaProtegida>} />
+        <Route path="/usuarios" element={<RotaProtegida><Usuarios /></RotaProtegida>} />
+        <Route path="/usuario/novo" element={<RotaProtegida><NovoUsuario /></RotaProtegida>} />
+        <Route path="/usuario/editar" element={<RotaProtegida><EditarUsuario /></RotaProtegida>} />
+        <Route path="/usuarios/inativos" element={<RotaProtegida><UsuariosInativos /></RotaProtegida>} />
+        <Route path="/usuario/alterarSenha" element={<RotaProtegida><AlterarSenha /></RotaProtegida>} />
+        <Route path="/carrinho" element={<RotaProtegida><Carrinho /></RotaProtegida>} />
+        <Route path="/historico" element={<RotaProtegida><Historico /></RotaProtegida>} />
+        <Route path="/chatbot" element={<RotaProtegida><ChatBot /></RotaProtegida>} />
       </Routes>
     </BrowserRouter>
   );
