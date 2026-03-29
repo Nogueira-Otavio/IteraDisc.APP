@@ -18,14 +18,27 @@
     margin-top: 10vh;
 }
 
-.botao_deslogar{
-    text-decoration: none;
+.botao_deslogar {
+    background: none;
+    border: none;
     color: #070b3b;
     font-size: 3.5vh;
-
     display: flex;
     align-items: center;
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 0;
+}
 
+.botao_deslogar:hover {
+    color: #f08830;
+}
+
+.separador {
+    width: 1px;
+    height: 60%;
+    background-color: #ccc;
+    align-self: center;
     margin-right: 20px;
 }
 

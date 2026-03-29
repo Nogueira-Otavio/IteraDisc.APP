@@ -1,0 +1,44 @@
+.pagina {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #070b3b;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  width: 70%;
+  display: block;
+  margin: 0 auto 24px auto;
+}
+
+.titulo {
+  text-align: center;
+  color: #070b3b;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.botao {
+  background-color: #f08830;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  font-weight: 500;
+  border-radius: 8px;
+  color: white;
+  margin-top: 8px;
+}
+
+.botao:hover {
+  background-color: #d4741f;
+}
